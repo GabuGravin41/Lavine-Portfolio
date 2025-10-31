@@ -5,11 +5,25 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
+# Dependencies
 node_modules
+.pnp
+.pnp.js
+
+# Build files
 dist
 dist-ssr
+build
+.next
+out
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Local development
 *.local
 
 # Editor directories and files
@@ -18,6 +32,19 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Sanity
+.sanity
+.sanity-manifest-*
+
+# Cache
+.cache/
+.temp/
+.tmp/
 *.ntvs*
 *.njsproj
 *.sln

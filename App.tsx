@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, FormEvent } from 'react';
 import Chatbot from './components/Chatbot';
-import { MailIcon, CalendarIcon, CreditCardIcon, BookOpenIcon, CheckCircleIcon } from './components/IconComponents';
 import { fetchBlogPosts, fetchServices, fetchCaseStudies } from './services/sanityService';
+import { initialBlogPosts, initialServices, initialCaseStudies } from './initialData';
 import type { BlogPost, Service, CaseStudy } from './types';
 
 // Types
@@ -56,8 +56,8 @@ const Hero: React.FC<{ handleNav: (page: Page, anchor?: string) => void }> = ({ 
     <section className="pt-28 md:pt-36 pb-20">
       <div className="container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&h=300&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Lavine" className="w-40 h-40 object-cover rounded-full mx-auto mb-6 shadow-lg border-4 border-white" />
-          <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight">Bridging Healthcare & Data Science</h1>
+          <img src="/lavine.jpg" alt="Lavine" className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-full mx-auto mb-8 shadow-xl border-4 border-white transform transition-transform hover:scale-105" />
+          <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight">Bridging Healthcare & Technology</h1>
           <p className="mt-6 text-lg md:text-xl text-slate-600">
             Leveraging data to revolutionize patient care and public health outcomes.
             Welcome to a new frontier of innovation where compassion meets computation.
@@ -85,7 +85,7 @@ const About: React.FC = () => (
             </p>
           </div>
           <div className="order-1 md:order-2">
-            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=800&h=600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Professional workspace" className="rounded-lg shadow-xl" />
+            <img src="/lavine-2.jpg" alt="Lavine at work" className="rounded-lg shadow-xl w-full h-auto" />
           </div>
         </div>
       </div>
@@ -113,9 +113,8 @@ const Services: React.FC<{services: Service[]}> = ({ services }) => (
                   <p className="text-sm font-semibold text-slate-700 mb-2">Key Tasks:</p>
                   <ul className="space-y-1">
                     {service.tasks.map((task, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                        <CheckCircleIcon className="h-4 w-4 text-indigo-500 mt-0.5 flex-shrink-0" />
-                        <span>{task}</span>
+                      <li key={i} className="text-sm text-slate-600">
+                        • {task}
                       </li>
                     ))}
                   </ul>
@@ -309,19 +308,29 @@ const ContactPage: React.FC<{ handleNav: (page: Page) => void }> = ({ handleNav 
                         </form>
                     </div>
                     <div className="flex flex-col justify-center">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-6">Other Ways to Connect</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-6">Connect</h2>
                         <div className="space-y-4">
-                             <a href="mailto:lavine@example.com" className="bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold py-3 px-6 rounded-lg flex items-center gap-4 transition-colors w-full">
-                                <MailIcon className="h-6 w-6" />
-                                <span>Email Me</span>
-                            </a>
-                            <a href="https://calendly.com/your-username" target="_blank" rel="noopener noreferrer" className="bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold py-3 px-6 rounded-lg flex items-center gap-4 transition-colors w-full">
-                                <CalendarIcon className="h-6 w-6" />
-                                <span>Book a Consultation</span>
-                            </a>
-                            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" className="bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold py-3 px-6 rounded-lg flex items-center gap-4 transition-colors w-full">
-                                <CreditCardIcon className="h-6 w-6" />
-                                <span>Payment Portal</span>
+                            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 text-center hover:bg-slate-100 transition-colors">
+                                <p className="text-slate-600 mb-1">Email me at</p>
+                                <a href="mailto:lavine@example.com" className="text-indigo-600 hover:text-indigo-800 font-medium text-lg">
+                                    lavine@example.com
+                                </a>
+                            </div>
+
+                            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 text-center hover:bg-slate-100 transition-colors">
+                                <p className="text-slate-600 mb-1">Call me at</p>
+                                <a href="tel:+254700000000" className="text-indigo-600 hover:text-indigo-800 font-medium text-lg">
+                                    +254 700 000 000
+                                </a>
+                            </div>
+
+                            <a 
+                                href="https://calendly.com/your-username" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg text-center transition-colors w-full"
+                            >
+                                Book a Free Consultation
                             </a>
                         </div>
                     </div>
@@ -340,33 +349,33 @@ const App: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [services, setServices] = useState<Service[]>([]);
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>(initialBlogPosts);
+  const [services, setServices] = useState<Service[]>(initialServices);
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>(initialCaseStudies);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
+    setIsLoading(true);
+    
     const fetchData = async () => {
-        try {
-            const [postsData, servicesData, caseStudiesData] = await Promise.all([
-                fetchBlogPosts(),
-                fetchServices(),
-                fetchCaseStudies()
-            ]);
-            setBlogPosts(postsData);
-            setServices(servicesData);
-            setCaseStudies(caseStudiesData);
-        } catch (err) {
-            console.error("Failed to fetch data from Sanity:", err);
-            console.log(
-              `CORS ERROR HINT: Your app's origin is "${window.location.origin}". Make sure this is added to your Sanity project's CORS origins list at https://manage.sanity.io/projects/ngkken67/api`
-            );
-            setError("Failed to load content. Please check the connection and Sanity project ID. (Check browser console for hints)");
-        } finally {
-            setIsLoading(false);
-        }
+      try {
+        const [posts, servicesData, studies] = await Promise.all([
+          fetchBlogPosts(),
+          fetchServices(),
+          fetchCaseStudies()
+        ]);
+        
+        if (posts && posts.length > 0) setBlogPosts(posts);
+        if (servicesData && servicesData.length > 0) setServices(servicesData);
+        if (studies && studies.length > 0) setCaseStudies(studies);
+      } catch (error) {
+        console.error('Error fetching data from Sanity. Using initial data instead.', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetchData();
   }, []);
 

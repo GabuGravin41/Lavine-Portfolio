@@ -2,11 +2,13 @@
 import { GoogleGenAI, Chat } from "@google/genai";
 import { Message } from '../types';
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!API_KEY) {
+    throw new Error("VITE_GEMINI_API_KEY environment variable not set");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 const systemInstruction = `You are Lavine's AI assistant. Lavine is a multi-talented professional with a Bachelor of Science in Nursing from Kenyatta University and a certificate in Data Science from ALX. Her expertise lies at the intersection of healthcare and technology.
 
