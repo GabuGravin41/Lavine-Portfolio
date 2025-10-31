@@ -14,8 +14,6 @@ export const sanityClient = createClient({
   apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2024-07-01',
   useCdn: import.meta.env.PROD, // Use CDN in production, real-time updates in development
   token: import.meta.env.VITE_SANITY_TOKEN, // Only needed for write operations
-  ignoreBrowserTokenWarning: true, // Only needed if you're using token in the browser
-  withCredentials: true, // Required for CORS with credentials
 });
 
 // Test the connection

@@ -25,7 +25,7 @@ const Header: React.FC<{
   return (
     <header className="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-30 shadow-sm border-b border-slate-200/80">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#" onClick={(e) => {e.preventDefault(); handleNav('home')}} className="text-2xl font-bold text-slate-800">Lavine K.</a>
+        <a href="#" onClick={(e) => {e.preventDefault(); handleNav('home')}} className="text-2xl font-bold text-slate-800">Lavine Mumbo</a>
         <nav className="hidden md:flex space-x-8">
           {navLinks.map(link => (
             <a key={link.label} href={link.anchor || '#'} onClick={(e) => { e.preventDefault(); handleNav(link.page as Page, link.anchor); }} className="cursor-pointer text-slate-600 hover:text-indigo-600 transition-colors">{link.label}</a>
